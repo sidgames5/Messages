@@ -4,6 +4,7 @@ import android.content.Context
 import android.net.Uri
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import com.bumptech.glide.Glide
 import com.klinker.android.send_message.MmsReceivedReceiver
 import org.fossify.commons.extensions.baseConfig
@@ -35,6 +36,11 @@ class MmsReceiver : MmsReceivedReceiver() {
     override fun onMessageReceived(context: Context, messageUri: Uri) {
         val mms = context.getLatestMMS() ?: return
         val address = mms.getSender()?.phoneNumbers?.first()?.normalizedNumber ?: ""
+
+        Log.d("TEST", mms.threadId.toString())
+        Log.d("TEST", mms.body)
+        Log.d("TEST", mms.status.toString())
+        Log.d("TEST", mms.type.toString())
 
         val size = context.resources.getDimension(R.dimen.notification_large_icon_size).toInt()
         val privateCursor = context.getMyContactsCursor(false, true)
